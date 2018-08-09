@@ -23,12 +23,16 @@ def get_python_libloc():
     if platform.system().lower() == 'darwin':
         return '/usr/lib'
 
-    pylib_loc = sysconfig.get_config_var("LIBPL")
-    pylib_ldlibrary = sysconfig.get_config_var("LDLIBRARY")
+    pylib_loc = sysconfig.get_config_var("LIBPL") or ""
+    pylib_ldlibrary = sysconfig.get_config_var("LDLIBRARY") or ""
 
     py_sharedlib = os.path.join(pylib_loc, pylib_ldlibrary)
     if os.path.exists(py_sharedlib):
         return pylib_loc
+
+    py_sharedlib = os.path.join(sysconfig.project_base, "libs")
+    if os.path.exists(py_sharedlib):
+        return py_sharedlib
 
     # Workaround for Fedora
     pylib_loc = sysconfig.get_config_var("LIBDIR")
@@ -53,6 +57,11 @@ if __name__ == "__main__":
         suffix = get("EXT_SUFFIX") or get("SO") or ".so"
         print(suffix[1:])
     elif sys.argv[1] == '--pygi-overridedir':
+
+
+        site_packages_dir = sysconfig.get_python_lib(False)
+        print(os.path.join(site_packages_dir, 'gi', 'overrides'))
+        exit(0)
         prefix = sys.argv[2]
         version = sys.version_info
 

@@ -18,9 +18,9 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
+/* #ifdef HAVE_CONFIG_H */
 #include "config.h"
-#endif
+/* #endif */
 
 /* include this first, before NO_IMPORT_PYGOBJECT is defined */
 #include <pygobject.h>

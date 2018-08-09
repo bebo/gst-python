@@ -79,6 +79,6 @@ configinc = include_directories('.')
 
 subdir('gi')
 subdir('plugin')
-subdir('testsuite')
+#subdir('testsuite')
 
 run_command(python3, '-c', 'import shutil; shutil.copy("hooks/pre-commit.hook", ".git/hooks/pre-commit")')
